@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b0e14;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 410px;
+    background: #121824;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header Styling */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1c2433;
+    padding: 14px 18px;
+    border-radius: 12px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.user-id {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.coin-badge {
+    background: #f1c40f;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Card Elements */
+.card {
+    background: #1c2433;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bonus-card {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.btn {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.claim-btn {
+    background: #ffffff;
+    color: #6c5ce7;
+}
+
+.action-btn {
+    background: #00b894;
+    color: white;
+}
+
+/* Main Grid Menu */
+.grid-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.grid-item {
+    background: #1c2433;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.grid-item .icon {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.grid-item small {
+    color: #a0aec0;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.section-title {
+    font-size: 14px;
+    color: #a0aec0;
+    font-weight: bold;
+}
+
+/* Bottom Nav Bar */
+.bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    background: #1c2433;
+    padding: 10px 14px;
+    border-radius: 12px;
+}
+
+.nav-item {
+    background: transparent;
+    border: none;
+    color: #a0aec0;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: #38ef7d;
+    font-weight: bold;
+}
