@@ -32,17 +32,32 @@ function claimDailyBonus() {
     alert("Daily Bonus Claimed! +20 Coins added.");
 }
 
-// 3. Quiz System Logic
+// 3. Quiz System Logic (Multiple Questions Added)
 const quizData = [
     {
         question: "भारत का राष्ट्रीय खेल कौन सा है?",
         options: ["क्रिकेट", "हॉकी", "फुटबॉल", "कबड्डी"],
-        answer: 1
+        answer: 1 // Hockey
     },
     {
         question: "1 Dollar mein kitne Cents hote hain?",
         options: ["50", "100", "200", "10"],
-        answer: 1
+        answer: 1 // 100
+    },
+    {
+        question: "भारत की राजधानी क्या है?",
+        options: ["मुंबई", "कोलकाता", "नई दिल्ली", "चेन्नई"],
+        answer: 2 // नई दिल्ली
+    },
+    {
+        question: "हमारे सौरमंडल का सबसे बड़ा ग्रह कौन सा है?",
+        options: ["मंगल", "बृहस्पति (Jupiter)", "पृथ्वी", "शनि"],
+        answer: 1 // Jupiter
+    },
+    {
+        question: "विश्व की सबसे लंबी नदी कौन सी है?",
+        options: ["अमेज़न", "नील (Nile)", "गंगा", "मिसीसिपी"],
+        answer: 1 // Nile
     }
 ];
 
@@ -80,9 +95,11 @@ function checkAnswer(selectedIndex) {
         updateCoinDisplay();
         alert("Correct Answer! 🎉 +10 Coins Added!");
     } else {
-        alert("Wrong Answer! Sahi uttar Hockey tha.");
+        const correctAnswerText = q.options[q.answer];
+        alert(`Wrong Answer! Sahi uttar ${correctAnswerText} tha.`);
     }
     
+    // Agle question par jaane ke liye
     currentQuizIndex = (currentQuizIndex + 1) % quizData.length;
     closeQuiz();
 }
