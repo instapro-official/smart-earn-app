@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEarn App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header (Profile & Balance) -->
+        <header class="app-header">
+            <div class="user-info">
+                <span class="username">Rohit Kumar</span>
+                <span class="user-id">ID: 123456</span>
+            </div>
+            <div class="coin-badge">
+                🪙 <span id="coinCount">952</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            
+            <!-- Daily Bonus Card -->
+            <div class="card bonus-card">
+                <div>
+                    <h3>Daily Bonus</h3>
+                    <p>Claim free coins daily</p>
+                </div>
+                <button class="btn claim-btn" onclick="claimDailyBonus()">Claim</button>
+            </div>
+
+            <!-- Dashboard Grid Buttons -->
+            <div class="grid-menu">
+                <button class="grid-item" onclick="watchAd()">
+                    <span class="icon">▶️</span>
+                    <span>Watch Ads</span>
+                    <small>Earn Coins</small>
+                </button>
+
+                <button class="grid-item" onclick="openQuiz()">
+                    <span class="icon">❓</span>
+                    <span>Play Quiz</span>
+                    <small>Earn More</small>
+                </button>
+
+                <button class="grid-item" onclick="openReferral()">
+                    <span class="icon">👥</span>
+                    <span>Refer & Earn</span>
+                    <small>Invite Friends</small>
+                </button>
+
+                <button class="grid-item" onclick="openWithdraw()">
+                    <span class="icon">💳</span>
+                    <span>Withdraw</span>
+                    <small>UPI / Bank</small>
+                </button>
+            </div>
+
+            <!-- Top Offers Section -->
+            <div class="section-title">Top Offers</div>
+            <div class="card offer-card">
+                <span>Watch 1 Ad = Get 5 Coins</span>
+                <button class="btn action-btn" onclick="watchAd()">Watch</button>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <button class="nav-item active">🏠 Home</button>
+            <button class="nav-item" onclick="openQuiz()">🎮 Games</button>
+            <button class="nav-item" onclick="openWithdraw()">👛 Wallet</button>
+            <button class="nav-item" onclick="openProfile()">👤 Profile</button>
+        </nav>
+    </div>
+
+    <!-- JavaScript File Link -->
+    <script src="script.js"></script>
+</body>
+  </html>
+
