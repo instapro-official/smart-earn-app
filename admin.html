@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEarn - Admin Panel</title>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { background: #0b0e14; color: white; padding: 20px; display: flex; justify-content: center; }
+        .admin-box { width: 100%; max-width: 400px; background: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; }
+        h2 { text-align: center; color: #58a6ff; margin-bottom: 15px; }
+        label { font-size: 13px; color: #8b949e; margin-top: 10px; display: block; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; }
+        button { width: 100%; padding: 12px; border-radius: 6px; border: none; background: #2ea44f; color: white; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
+        .code-box { margin-top: 15px; background: #0d1117; padding: 10px; border-radius: 6px; border: 1px solid #30363d; display: none; }
+        textarea { width: 100%; height: 100px; background: transparent; color: #7ee787; border: none; resize: none; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-box">
+        <h2>Admin Panel - Quiz Creator</h2>
+        
+        <label>1. Sawaal (Question):</label>
+        <input type="text" id="qText" placeholder="Eg: Bharat ki rajdhani kya hai?">
+
+        <label>2. Chaar Options:</label>
+        <input type="text" id="opt0" placeholder="Option 1">
+        <input type="text" id="opt1" placeholder="Option 2">
+        <input type="text" id="opt2" placeholder="Option 3">
+        <input type="text" id="opt3" placeholder="Option 4">
+
+        <label>3. Sahi Option Kaun Sa Hai?</label>
+        <select id="correctOpt">
+            <option value="0">Option 1 (Pehla)</option>
+            <option value="1">Option 2 (Doosra)</option>
+            <option value="2">Option 3 (Teesra)</option>
+            <option value="3">Option 4 (Chautha)</option>
+        </select>
+
+        <button onclick="generateQuestionCode()">Generate Code</button>
+
+        <div id="resultBox" class="code-box">
+            <label>Niche wala code copy karke `script.js` me paste karein:</label>
+            <textarea id="codeOutput" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        function generateQuestionCode() {
+            const q = document.getElementById('qText').value;
+            const o0 = document.getElementById('opt0').value;
+            const o1 = document.getElementById('opt1').value;
+            const o2 = document.getElementById('opt2').value;
+            const o3 = document.getElementById('opt3').value;
+            const ans = document.getElementById('correctOpt').value;
+
+            if(!q || !o0 || !o1 || !o2 || !o3) {
+                alert("Kripya saari details bharein!");
+                return;
+            }
+
+            const code = `    {\n        question: "${q}",\n        options: ["${o0}", "${o1}", "${o2}", "${o3}"],\n        answer: ${ans}\n    },`;
+
+            document.getElementById('codeOutput').value = code;
+            document.getElementById('resultBox').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
