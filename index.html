@@ -75,10 +75,23 @@
             <button class="nav-item" onclick="openWithdraw()">👛 Wallet</button>
             <button class="nav-item" onclick="openProfile()">👤 Profile</button>
         </nav>
+
+        <!-- Quiz Popup Modal -->
+        <div id="quizModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Daily Quiz</h3>
+                    <button class="close-btn" onclick="closeQuiz()">✖</button>
+                </div>
+                <div class="quiz-body">
+                    <p class="quiz-question" id="quizQuestion">Loading Question...</p>
+                    <div class="quiz-options" id="quizOptions"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- JavaScript File Link -->
     <script src="script.js"></script>
 </body>
-  </html>
-
+</html>
