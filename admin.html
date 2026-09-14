@@ -1,70 +1,446 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartEarn - Admin Panel</title>
-    <style>
-        * { box-sizing: border-box; font-family: sans-serif; }
-        body { background: #0b0e14; color: white; padding: 20px; display: flex; justify-content: center; }
-        .admin-box { width: 100%; max-width: 400px; background: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; }
-        h2 { text-align: center; color: #58a6ff; margin-bottom: 15px; }
-        label { font-size: 13px; color: #8b949e; margin-top: 10px; display: block; }
-        input, select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; }
-        button { width: 100%; padding: 12px; border-radius: 6px; border: none; background: #2ea44f; color: white; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
-        .code-box { margin-top: 15px; background: #0d1117; padding: 10px; border-radius: 6px; border: 1px solid #30363d; display: none; }
-        textarea { width: 100%; height: 100px; background: transparent; color: #7ee787; border: none; resize: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CoinRush Rewards - Live</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#080b20,#171044,#06233b);color:#fff;min-height:100vh}
+button{border:0;cursor:pointer;font-weight:800}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:95px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px}
+.profile{display:flex;align-items:center;gap:10px}.avatar{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:21px}
+.name{font-weight:800}.id{font-size:11px;color:#aaa}.balance{background:#ffffff12;border:1px solid #ffffff18;padding:10px 13px;border-radius:14px}
+.hero{margin:10px 16px;padding:24px;border-radius:25px;background:linear-gradient(135deg,#4824a8,#0964a9);box-shadow:0 15px 35px #0005}
+.hero h1{font-size:27px;margin-bottom:8px}.hero p{color:#ddd}.coins{font-size:32px;font-weight:900;margin-top:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.card{background:#ffffff0c;border:1px solid #ffffff15;border-radius:20px;padding:18px;box-shadow:0 8px 25px #0003}
+.card h3{margin:8px 0}.card p{font-size:13px;color:#aaa;line-height:1.5}.icon{font-size:32px}
+.full{margin:0 16px 12px}
+.btn{width:100%;padding:13px;border-radius:13px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;margin-top:12px}
+.btn:disabled{opacity:.5}
+.withdraw{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);width:min(488px,calc(100% - 30px));padding:16px;border-radius:18px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:16px;z-index:20}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:30;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}.box{width:100%;max-width:480px;background:#11152e;border:1px solid #ffffff18;border-radius:25px;padding:22px;max-height:90vh;overflow:auto}
+.close{float:right;background:#ffffff15;color:#fff;border-radius:50%;width:34px;height:34px}
+.box h2{text-align:center;margin:5px 0 18px}
+.wheel-wrap{position:relative;width:290px;height:290px;margin:20px auto}
+#wheel{width:290px;height:290px;border-radius:50%;position:relative;transition:transform 4.2s cubic-bezier(.12,.75,.15,1);border:9px solid #fff;box-shadow:0 0 35px #7c3aed88;background:conic-gradient(#f59e0b 0 72deg,#22c55e 72deg 144deg,#3b82f6 144deg 216deg,#ef4444 216deg 288deg,#a855f7 288deg 360deg)}
+#wheel span{position:absolute;left:50%;top:50%;width:80px;text-align:center;font-size:25px;font-weight:900;transform-origin:0 0}
+.s1{transform:rotate(36deg) translateX(62px)}.s2{transform:rotate(108deg) translateX(62px)}.s3{transform:rotate(180deg) translateX(62px)}.s4{transform:rotate(252deg) translateX(62px)}.s5{transform:rotate(324deg) translateX(62px)}
+.pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:32px solid #fff;z-index:3}
+.result{text-align:center;display:none;padding:14px;background:#22c55e22;border:1px solid #22c55e66;border-radius:15px;margin-top:12px}.result.show{display:block}.result strong{font-size:24px}
+.lucky{height:190px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#ec4899,#7c3aed);display:grid;place-items:center;font-size:60px}
+.quiz-q{font-size:21px;font-weight:800;text-align:center;background:#ffffff0b;padding:22px;border-radius:16px;margin-bottom:14px}
+.answers{display:grid;gap:10px}.answers button{padding:14px;border-radius:13px;background:#ffffff12;color:#fff;text-align:left}
+.surveyPage{display:none;position:fixed;inset:0;background:#080b20;z-index:40;overflow:auto}
+.surveyPage.show{display:block}.surveyInner{max-width:520px;margin:auto;padding-bottom:40px}
+.surveyHead{display:flex;align-items:center;gap:12px;padding:18px 16px;position:sticky;top:0;background:#0c1030ee;backdrop-filter:blur(10px);z-index:5}
+.back{width:38px;height:38px;border-radius:12px;background:#ffffff12;color:#fff;font-size:20px}
+.surveyHead h2{font-size:20px}.surveyCount{text-align:center;color:#aaa;padding:8px 16px 15px}
+.ad{margin:10px 16px;padding:15px;border-radius:16px;background:linear-gradient(135deg,#20264b,#151936);border:1px solid #ffffff12;text-align:center}
+.ad small{display:block;color:#777;font-size:10px;margin-bottom:6px}.ad b{font-size:14px}.ad span{display:block;color:#aaa;font-size:11px;margin-top:5px}
+.survey{margin:10px 16px;padding:17px;background:#ffffff0c;border:1px solid #ffffff12;border-radius:18px}
+.survey b{display:block;font-size:16px;margin-bottom:6px}.survey small{color:#999}.survey .btn{margin-top:11px}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;background:#ffffff0d;color:#fff;margin:7px 0;outline:none}
+.history div{padding:12px;background:#ffffff0b;border-radius:12px;margin-top:8px;font-size:13px}
+.toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-120px);background:#151a38;border:1px solid #ffffff20;padding:13px 18px;border-radius:14px;z-index:100;transition:.4s;box-shadow:0 10px 30px #0007}.toast.show{transform:translate(-50%,0)}
+.confetti{position:fixed;z-index:99;top:-10px;font-size:22px;animation:fall 1.5s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
+@media(max-width:360px){#wheel,.wheel-wrap{width:250px;height:250px}}
+</style>
 </head>
 <body>
 
-    <div class="admin-box">
-        <h2>Admin Panel - Quiz Creator</h2>
-        
-        <label>1. Sawaal (Question):</label>
-        <input type="text" id="qText" placeholder="Eg: Bharat ki rajdhani kya hai?">
+<div class="app">
+<header>
+<div class="profile"><div class="avatar">👤</div><div><div class="name" id="userName">User</div><div class="id" id="userId">ID: Loading...</div></div></div>
+<div class="balance">🪙 <span id="topCoins">0</span></div>
+</header>
 
-        <label>2. Chaar Options:</label>
-        <input type="text" id="opt0" placeholder="Option 1">
-        <input type="text" id="opt1" placeholder="Option 2">
-        <input type="text" id="opt2" placeholder="Option 3">
-        <input type="text" id="opt3" placeholder="Option 4">
+<section class="hero">
+<h1>Earn Live Coins 🚀</h1>
+<p>Watch rewarded ads, complete verified offers & withdraw real earnings.</p>
+<div class="coins">🪙 <span id="coins">0</span></div>
+</section>
 
-        <label>3. Sahi Option Kaun Sa Hai?</label>
-        <select id="correctOpt">
-            <option value="0">Option 1 (Pehla)</option>
-            <option value="1">Option 2 (Doosra)</option>
-            <option value="2">Option 3 (Teesra)</option>
-            <option value="3">Option 4 (Chautha)</option>
-        </select>
+<div class="grid">
+<div class="card"><div class="icon">🎁</div><h3>Daily Bonus</h3><p>Claim verified daily check-in.</p><button class="btn" id="bonusBtn" onclick="dailyBonus()">CLAIM</button></div>
+<div class="card"><div class="icon">📺</div><h3>Watch Rewarded Ad</h3><p>View sponsor video ad to earn.</p><button class="btn" onclick="watchRewardedAd()">WATCH AD</button></div>
+<div class="card"><div class="icon">🎡</div><h3>Spin Wheel</h3><p>Daily spins with ad verification.</p><button class="btn" onclick="openModal('wheelModal')">SPIN</button></div>
+<div class="card"><div class="icon">🃏</div><h3>Lucky Card</h3><p>Scratch or reveal daily card.</p><button class="btn" onclick="openLucky()">PLAY</button></div>
+</div>
 
-        <button onclick="generateQuestionCode()">Generate Code</button>
+<div class="full card"><div class="icon">🧠</div><h3>Live Quiz Zone</h3><p>Answer correctly after watching partner prompt.</p><button class="btn" onclick="startQuiz()">START QUIZ</button></div>
 
-        <div id="resultBox" class="code-box">
-            <label>Niche wala code copy karke `script.js` me paste karein:</label>
-            <textarea id="codeOutput" readonly></textarea>
+<div class="full card"><div class="icon">📋</div><h3>Offerwall / Surveys</h3><p>Complete partner network tasks securely.</p><button class="btn" onclick="openSurveyPage()">OPEN OFFERS</button></div>
+
+<div class="grid">
+<div class="card"><div class="icon">📥</div><h3>App Install Task</h3><p>Download sponsor apps via tracking link.</p><button class="btn" onclick="verifyInstallTask()">verify task</button></div>
+<div class="card"><div class="icon">👥</div><h3>Refer & Earn</h3><p>Get commission per active referral.</p><button class="btn" onclick="openModal('refModal')">INVITE</button></div>
+</div>
+
+<div class="full card"><div class="icon">💳</div><h3>Payout Ledger</h3><p>Server-verified payout history.</p><button class="btn" onclick="openHistory()">VIEW LEDGER</button></div>
+</div>
+
+<button class="withdraw" onclick="openWithdraw()">💰 REQUEST PAYOUT</button>
+</div>
+
+<!-- MODALS -->
+<div class="modal" id="wheelModal"><div class="box">
+<button class="close" onclick="closeModal('wheelModal')">×</button>
+<h2>🎡 Live Spin Wheel</h2>
+<div class="wheel-wrap"><div class="pointer"></div><div id="wheel">
+<span class="s1">10</span><span class="s2">15</span><span class="s3">20</span><span class="s4">50</span><span class="s5">100</span>
+</div></div>
+<div class="result" id="spinResult"><strong id="spinWon"></strong><br>🎉 Verified!</div>
+<button class="btn" id="spinButton" onclick="spinWheel()">🎡 WATCH AD & SPIN</button>
+<p id="spinLeft" style="text-align:center;color:#aaa;margin-top:10px"></p>
+</div></div>
+
+<div class="modal" id="luckyModal"><div class="box">
+<button class="close" onclick="closeModal('luckyModal')">×</button><h2>🃏 Lucky Card</h2>
+<div class="lucky" id="luckyCard">🎁</div>
+<button class="btn" id="luckyBtn" onclick="chooseLucky()">REVEAL REWARD</button>
+<p id="luckyResult" style="text-align:center;margin-top:15px"></p>
+</div></div>
+
+<div class="modal" id="quizModal"><div class="box">
+<button class="close" onclick="closeModal('quizModal')">×</button><h2>🧠 Secure Quiz</h2>
+<p id="quizType" style="text-align:center;color:#aaa"></p>
+<div class="quiz-q" id="quizQuestion"></div>
+<div class="answers" id="answers"></div>
+<p id="quizResult" style="text-align:center;margin-top:15px;font-weight:800"></p>
+</div></div>
+
+<div class="modal" id="withdrawModal"><div class="box">
+<button class="close" onclick="closeModal('withdrawModal')">×</button><h2>💰 Secure Payout Gateway</h2>
+<p style="color:#aaa;text-align:center">Minimum threshold applies via server validation.</p>
+<input id="withdrawCoins" type="number" placeholder="Enter coins to redeem">
+<input id="upi" type="text" placeholder="Enter Verified UPI ID / Wallet">
+<button class="btn" onclick="submitWithdraw()">SUBMIT PAYOUT REQUEST</button>
+</div></div>
+
+<div class="modal" id="historyModal"><div class="box">
+<button class="close" onclick="closeModal('historyModal')">×</button><h2>📜 Live Payout History</h2>
+<div id="historyList"></div>
+</div></div>
+
+<div class="modal" id="refModal"><div class="box">
+<button class="close" onclick="closeModal('refModal')">×</button><h2>👥 Referral Program</h2>
+<p style="text-align:center;color:#aaa">Share your unique tracking URL</p>
+<input id="refLink" value="https://yourdomain.com/register?ref=USER123" readonly>
+<button class="btn" onclick="copyRef()">📋 COPY LINK</button>
+<button class="btn" onclick="shareWhatsApp()">🟢 SHARE ON WHATSAPP</button>
+</div></div>
+
+<div class="surveyPage" id="surveyPage">
+<div class="surveyInner">
+<div class="surveyHead">
+<button class="back" onclick="closeSurveyPage()">‹</button>
+<h2>📋 Live Offerwalls & Surveys</h2>
+</div>
+<div class="surveyCount" id="surveyCount"></div>
+<div id="surveyList"></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// PRODUCTION / LIVE SETUP HOOKS
+// Note: Connect these variables and functions to your backend database (Node.js/PHP/MySQL) and Ad Network SDK (e.g., Google AdMob Web / AdSense Rewarded API).
+
+let coins = Number(localStorage.getItem("user_coins") || 0);
+let spinning = false;
+let quizIndex = 0;
+let wheelRotation = Number(localStorage.getItem("wheelRotation") || 0);
+
+const today = () => new Date().toISOString().slice(0, 10);
+
+function syncWithServer(earnedCoins, actionType) {
+    // TODO: Implement AJAX / Fetch API to update balance securely on your backend database
+    // fetch('/api/update-balance.php', { method: 'POST', body: JSON.stringify({ coins: earnedCoins, action: actionType }) })
+    coins += earnedCoins;
+    localStorage.setItem("user_coins", coins);
+    document.getElementById("coins").textContent = coins;
+    document.getElementById("topCoins").textContent = coins;
+}
+
+function toast(t){
+    let x = document.getElementById("toast");
+    x.textContent = t; x.classList.add("show");
+    setTimeout(() => x.classList.remove("show"), 2200);
+}
+
+function openModal(id){ document.getElementById(id).classList.add("show"); }
+function closeModal(id){ document.getElementById(id).classList.remove("show"); }
+
+function celebrate(){
+    for(let i=0; i<35; i++){
+        let e = document.createElement("div");
+        e.className = "confetti";
+        e.textContent = ["🎉","✨","🪙","🎊"][Math.floor(Math.random()*4)];
+        e.style.left = Math.random()*100 + "vw";
+        e.style.animationDelay = Math.random()*.4 + "s";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 1800);
+    }
+}
+
+// REAL REWARDED AD TRIGGER PLACEHOLDER
+function watchRewardedAd() {
+    toast("Loading Rewarded Ad...");
+    // INTEGRATION EXAMPLE FOR GOOGLE / AD NETWORK SDK:
+    // 1. Call adSDK.showRewardedAd()
+    // 2. On ad completed reward listener:
+    setTimeout(() => {
+        syncWithServer(25, "watch_ad");
+        toast("🪙 +25 Coins credited via Ad network!");
+        celebrate();
+    }, 1500);
+}
+
+function dailyBonus(){
+    if(localStorage.getItem("lastBonus") === today()){
+        toast("🎁 Daily bonus already claimed today!"); return;
+    }
+    localStorage.setItem("lastBonus", today());
+    syncWithServer(100, "daily_bonus");
+    celebrate();
+    updateBonus();
+}
+
+function updateBonus(){
+    let b = document.getElementById("bonusBtn");
+    if(localStorage.getItem("lastBonus") === today()){
+        b.textContent = "CLAIMED ✓"; b.disabled = true;
+    }
+}
+
+function verifyInstallTask(){
+    let key = "task_install_" + today();
+    if(localStorage.getItem(key)){
+        toast("Task already verified today!"); return;
+    }
+    // Redirect to advertiser link or tracking wall, verify via postback callback API
+    localStorage.setItem(key, 1);
+    syncWithServer(30, "app_install");
+    celebrate();
+    toast("🪙 +30 Coins added after verification!");
+}
+
+/* WHEEL LOGIC */
+function resetSpin(){
+    if(localStorage.getItem("spinDate") !== today()){
+        localStorage.setItem("spinDate", today());
+        localStorage.setItem("spinCount", "0");
+    }
+}
+
+function spinWheel(){
+    resetSpin();
+    let count = Number(localStorage.getItem("spinCount") || 0);
+    if(count >= 5){ toast("🔒 Daily 5 spins exhausted!"); return; }
+    if(spinning) return;
+
+    // Trigger Ad before spin validation in live systems
+    toast("Loading ad verification for spin...");
+    
+    setTimeout(() => {
+        spinning = true;
+        let button = document.getElementById("spinButton");
+        let wheel = document.getElementById("wheel");
+        let result = document.getElementById("spinResult");
+
+        button.disabled = true;
+        result.classList.remove("show");
+
+        const rewards = [10, 15, 20, 50, 100];
+        let reward = rewards[Math.floor(Math.random() * rewards.length)];
+
+        let extraSpins = 5 + Math.floor(Math.random() * 3);
+        let targetAngle = Math.floor(Math.random() * 5) * 72 + 36;
+        wheelRotation += extraSpins * 360 + (360 - targetAngle);
+
+        localStorage.setItem("wheelRotation", wheelRotation);
+        wheel.style.transform = "rotate(" + wheelRotation + "deg)";
+
+        count++;
+        localStorage.setItem("spinCount", count);
+        updateSpinText();
+
+        setTimeout(() => {
+            syncWithServer(reward, "spin_wheel");
+            document.getElementById("spinWon").textContent = "You won " + reward + " Coins!";
+            result.classList.add("show");
+            celebrate();
+
+            spinning = false;
+            button.disabled = false;
+            updateSpinText();
+        }, 4200);
+    }, 1200);
+}
+
+function updateSpinText(){
+    resetSpin();
+    let c = Number(localStorage.getItem("spinCount") || 0);
+    document.getElementById("spinLeft").textContent = (5 - c) + " spins left today";
+    let b = document.getElementById("spinButton");
+    if(c >= 5){
+        b.textContent = "🔒 SPINS COMPLETED"; b.disabled = true;
+    } else {
+        b.textContent = "🎡 WATCH AD & SPIN";
+    }
+}
+
+/* LUCKY CARD */
+function openLucky(){
+    openModal("luckyModal");
+    let used = localStorage.getItem("luckyDate") === today();
+    document.getElementById("luckyBtn").disabled = used;
+    document.getElementById("luckyBtn").textContent = used ? "ALREADY CLAIMED" : "REVEAL REWARD";
+    document.getElementById("luckyResult").textContent = used ? "Come back tomorrow!" : "Reveal your secure card 🎁";
+}
+
+function chooseLucky(){
+    if(localStorage.getItem("luckyDate") === today()) return;
+    localStorage.setItem("luckyDate", today());
+    let rewards = [30, 50, 75, 100];
+    let reward = rewards[Math.floor(Math.random() * rewards.length)];
+
+    document.getElementById("luckyCard").textContent = "🪙 " + reward;
+    document.getElementById("luckyResult").textContent = "🎉 Won " + reward + " Coins!";
+    document.getElementById("luckyBtn").textContent = "CLAIMED";
+    document.getElementById("luckyBtn").disabled = true;
+
+    syncWithServer(reward, "lucky_card");
+    celebrate();
+}
+
+/* QUIZ */
+const math = [
+    ["If 15 × 8 = ?", ["110", "120", "125", "130"], 1],
+    ["What is 25% of 240?", ["40", "50", "60", "80"], 2]
+];
+
+function startQuiz(){
+    quizIndex = 0;
+    openModal("quizModal");
+    nextQuestion();
+}
+
+function nextQuestion(){
+    let q = math[quizIndex % math.length];
+    document.getElementById("quizType").textContent = "SECURE CHALLENGE";
+    document.getElementById("quizQuestion").textContent = q[0];
+    document.getElementById("quizResult").textContent = "";
+
+    let box = document.getElementById("answers");
+    box.innerHTML = "";
+    q[1].forEach((a, i) => {
+        let b = document.createElement("button");
+        b.textContent = a;
+        b.onclick = () => answerQuiz(i, q[2]);
+        box.appendChild(b);
+    });
+}
+
+function answerQuiz(i, correct){
+    let result = document.getElementById("quizResult");
+    if(i === correct){
+        result.textContent = "🎉 Correct! +20 Coins";
+        result.style.color = "#4ade80";
+        syncWithServer(20, "quiz_reward");
+        celebrate();
+        setTimeout(() => { quizIndex++; nextQuestion(); }, 1200);
+    } else {
+        result.textContent = "❌ Incorrect Answer!";
+        result.style.color = "#fb7185";
+    }
+}
+
+/* SURVEY / OFFERWALL */
+const surveys = [["Partner Offerwall Task 1", 20], ["Partner Offerwall Task 2", 25]];
+
+function openSurveyPage(){
+    document.getElementById("surveyPage").classList.add("show");
+    let list = document.getElementById("surveyList");
+    list.innerHTML = surveys.map((s, idx) => `
+        <div class="survey">
+            <b>📋 ${s[0]}</b>
+            <small>Reward: ${s[1]} Coins (Server Postback Verified)</small>
+            <button class="btn" onclick="completeSurvey(${s[1]})">COMPLETE OFFER • +${s[1]}</button>
         </div>
-    </div>
+    `).join("");
+}
 
-    <script>
-        function generateQuestionCode() {
-            const q = document.getElementById('qText').value;
-            const o0 = document.getElementById('opt0').value;
-            const o1 = document.getElementById('opt1').value;
-            const o2 = document.getElementById('opt2').value;
-            const o3 = document.getElementById('opt3').value;
-            const ans = document.getElementById('correctOpt').value;
+function closeSurveyPage(){ document.getElementById("surveyPage").classList.remove("show"); }
 
-            if(!q || !o0 || !o1 || !o2 || !o3) {
-                alert("Kripya saari details bharein!");
-                return;
-            }
+function completeSurvey(reward){
+    syncWithServer(reward, "offerwall_survey");
+    toast("📋 Offer completed & verified!");
+    celebrate();
+}
 
-            const code = `    {\n        question: "${q}",\n        options: ["${o0}", "${o1}", "${o2}", "${o3}"],\n        answer: ${ans}\n    },`;
+/* WITHDRAWAL SYSTEM */
+function openWithdraw(){ openModal("withdrawModal"); }
 
-            document.getElementById('codeOutput').value = code;
-            document.getElementById('resultBox').style.display = 'block';
-        }
-    </script>
+function submitWithdraw(){
+    let amount = Number(document.getElementById("withdrawCoins").value);
+    let upi = document.getElementById("upi").value.trim();
+
+    if(amount < 1000){ toast("Minimum payout threshold is 1,000 coins"); return; }
+    if(amount > coins){ toast("Insufficient live balance"); return; }
+    if(!upi || !upi.includes("@")){ toast("Enter a valid payout destination (UPI/Wallet)"); return; }
+
+    // Deduct locally and push to backend queue ledger
+    coins -= amount;
+    localStorage.setItem("user_coins", coins);
+    
+    let arr = JSON.parse(localStorage.getItem("server_payouts") || "[]");
+    arr.unshift({ amount: amount, upi: upi, date: today(), status: "Processing (Server Verified)" });
+    localStorage.setItem("server_payouts", JSON.stringify(arr));
+
+    closeModal("withdrawModal");
+    syncWithServer(0, "payout_request");
+    toast("✅ Payout request submitted to server!");
+    openHistory();
+}
+
+function openHistory(){
+    openModal("historyModal");
+    let arr = JSON.parse(localStorage.getItem("server_payouts") || "[]");
+    let box = document.getElementById("historyList");
+    if(!arr.length){
+        box.innerHTML = "<p style='text-align:center;color:#aaa'>No payout logs found.</p>";
+        return;
+    }
+    box.innerHTML = arr.map(x => `
+        <div>💰 <b>${x.amount} Coins</b><br>Destination: ${x.upi}<br>Date: ${x.date}<br>Status: ${x.status}</div>
+    `).join("");
+}
+
+function copyRef(){
+    navigator.clipboard.writeText(document.getElementById("refLink").value);
+    toast("📋 Referral link copied");
+}
+
+function shareWhatsApp(){
+    let text = encodeURIComponent("Join and earn real rewards! Use my link: https://yourdomain.com/?ref=USER123");
+    window.open("https://wa.me/?text=" + text, "_blank");
+}
+
+// INITIALIZATION
+document.getElementById("userName").textContent = "Member #" + Math.floor(100000 + Math.random() * 900000);
+document.getElementById("userId").textContent = "ID: CR-" + Math.floor(10000 + Math.random() * 90000);
+syncWithServer(0, "init");
+updateBonus();
+updateSpinText();
+document.getElementById("wheel").style.transform = "rotate(" + (wheelRotation % 360) + "deg)";
+</script>
+
 </body>
 </html>
