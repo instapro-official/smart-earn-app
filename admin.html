@@ -6,64 +6,101 @@
 <title>CoinRush Rewards Pro</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#050714,#100c2a,#02182b);color:#fff;min-height:100vh}
-button{border:0;cursor:pointer;font-weight:800}
-.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:95px;display:none}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#07091e,#13113d,#050b1a);color:#fff;min-height:100vh}
+button{border:0;cursor:pointer;font-weight:700}
+.app{max-width:480px;margin:auto;min-height:100vh;padding-bottom:95px;display:none}
 .app.show{display:block}
-header{display:flex;align-items:center;justify-content:space-between;padding:16px}
-.profile{display:flex;align-items:center;gap:10px}.avatar{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#06b6d4);font-size:21px}
-.name{font-weight:800}.id{font-size:11px;color:#aaa}.balance{background:#ffffff12;border:1px solid #ffffff18;padding:10px 13px;border-radius:14px}
-.hero{margin:10px 16px;padding:24px;border-radius:25px;background:linear-gradient(135deg,#5b21b6,#0284c7);box-shadow:0 15px 35px #0005}
-.hero h1{font-size:27px;margin-bottom:8px}.hero p{color:#ddd}.coins{font-size:32px;font-weight:900;margin-top:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
-.card{background:#ffffff0c;border:1px solid #ffffff15;border-radius:20px;padding:18px;box-shadow:0 8px 25px #0003}
-.card h3{margin:8px 0}.card p{font-size:13px;color:#aaa;line-height:1.5}.icon{font-size:32px}
+
+/* STYLISH COLOR GRADIENT HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:linear-gradient(90deg,#1c1b4b,#2e1065);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;backdrop-filter:blur(12px);z-index:10}
+.profile{display:flex;align-items:center;gap:10px}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#06b6d4);font-size:18px;box-shadow:0 0 15px rgba(139,92,246,0.5)}
+.name{font-weight:700;font-size:14px}.id{font-size:11px;color:#a5b4fc}
+.balance-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:6px 14px;border-radius:14px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}
+
+/* HERO BALANCE CARD (REF: 97274.jpg) */
+.hero-card{margin:14px 16px;padding:20px;border-radius:24px;background:linear-gradient(135deg,#3b82f6,#7c3aed,#ec4899);box-shadow:0 12px 30px rgba(124,58,237,0.35);position:relative;overflow:hidden}
+.hero-title{font-size:11px;letter-spacing:1px;color:#e0e7ff;font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hero-balance-row{display:flex;align-items:center;justify-content:space-between}
+.hero-amount{font-size:28px;font-weight:900;display:flex;align-items:center;gap:8px}
+.hero-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.hero-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:10px;border-radius:14px;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(5px);transition:0.2s}
+.hero-btn:active{transform:scale(0.97)}
+
+/* SECTION HEADER */
+.section-header{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 10px;font-size:14px;font-weight:800}
+.section-header span{color:#a5b4fc;font-size:12px;cursor:pointer}
+
+/* GRID & CARDS LAYOUT */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 12px}
+.card{background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.25);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.card h3{margin:8px 0 3px;font-size:14px;font-weight:700}.card p{font-size:11px;color:#94a3b8;line-height:1.3}
+.badge-tag{position:absolute;top:10px;right:10px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.4);padding:2px 8px;border-radius:8px;font-size:9px;color:#c084fc;font-weight:700}
+.icon{font-size:26px}
 .full{margin:0 16px 12px}
-.btn{width:100%;padding:13px;border-radius:13px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;margin-top:12px;transition:0.2s}
+.btn{width:100%;padding:11px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#3b82f6);color:white;margin-top:12px;font-size:12px;font-weight:700;transition:0.2s;box-shadow:0 4px 15px rgba(139,92,246,0.3)}
 .btn:active{transform:scale(0.97)}
-.btn:disabled{opacity:.5}
-.withdraw{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);width:min(488px,calc(100% - 30px));padding:16px;border-radius:18px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:16px;z-index:20;box-shadow:0 10px 25px rgba(245,158,11,0.4)}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:30;align-items:center;justify-content:center;padding:16px}
-.modal.show{display:flex}.box{width:100%;max-width:480px;background:#11152e;border:1px solid #ffffff18;border-radius:25px;padding:22px;max-height:90vh;overflow:auto}
-.close{float:right;background:#ffffff15;color:#fff;border-radius:50%;width:34px;height:34px}
-.box h2{text-align:center;margin:5px 0 18px}
+.btn:disabled{opacity:.5;box-shadow:none}
+
+/* BOTTOM NAV BAR (REF: 97274.jpg) */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:rgba(15, 23, 42, 0.95);backdrop-filter:blur(15px);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;padding:10px 0 16px;z-index:25}
+.nav-item{background:transparent;border:0;color:#64748b;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;cursor:pointer;font-weight:600}
+.nav-item.active{color:#a78bfa}
+.nav-item span:first-child{font-size:18px}
+
+/* STICKY TOP WITHDRAW BUTTON */
+.withdraw{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);width:min(450px,calc(100% - 24px));padding:13px;border-radius:16px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-size:15px;font-weight:800;z-index:20;box-shadow:0 8px 25px rgba(245,158,11,0.4)}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:30;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
+.modal.show{display:flex}.box{width:100%;max-width:440px;background:linear-gradient(145deg,#13113d,#0f172a);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:22px;max-height:90vh;overflow:auto;box-shadow:0 20px 40px rgba(0,0,0,0.6)}
+.close{float:right;background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:32px;height:32px;font-size:16px;display:grid;place-items:center;cursor:pointer}
+.box h2{text-align:center;margin:0 0 15px;font-size:18px}
 
 /* LOGIN & ADMIN STYLING */
 .login-container{position:fixed;inset:0;background:#050714;display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
-.login-box{width:100%;max-width:400px;background:#11152e;border:1px solid #ffffff18;border-radius:25px;padding:25px;box-shadow:0 15px 35px #0007}
-.login-box h2{text-align:center;margin-bottom:20px;font-size:24px}
-.login-box p{text-align:center;color:#aaa;font-size:13px;margin-bottom:20px}
+.login-box{width:100%;max-width:380px;background:#11152e;border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:24px;box-shadow:0 15px 35px rgba(0,0,0,0.7)}
+.login-box h2{text-align:center;margin-bottom:6px;font-size:22px}
+.login-box p{text-align:center;color:#94a3b8;font-size:12px;margin-bottom:18px}
 
-.admin-panel{display:none;max-width:520px;margin:auto;min-height:100vh;padding:20px;background:#050714;z-index:150;position:fixed;inset:0;overflow:auto}
+.admin-panel{display:none;max-width:480px;margin:auto;min-height:100vh;padding:16px;background:#050714;z-index:150;position:fixed;inset:0;overflow:auto}
 .admin-panel.show{display:block}
-.admin-card{background:#ffffff0c;border:1px solid #ffffff15;border-radius:15px;padding:15px;margin-top:12px;font-size:14px}
+.admin-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;margin-top:10px;font-size:13px}
 
-/* PRO LEVEL WHEEL DESIGN */
-.wheel-wrap{position:relative;width:310px;height:310px;margin:20px auto;filter:drop-shadow(0 0 20px rgba(124,58,237,0.5))}
-#wheel{width:310px;height:310px;border-radius:50%;position:relative;transition:transform 4.5s cubic-bezier(0.15, 0.85, 0.12, 1);border:10px solid #22d3ee;box-shadow:inset 0 0 25px rgba(0,0,0,0.6), 0 0 30px #7c3aed;background:conic-gradient(#f59e0b 0deg 72deg, #10b981 72deg 144deg, #3b82f6 144deg 216deg, #ef4444 216deg 288deg, #a855f7 288deg 360deg)}
-#wheel span{position:absolute;left:50%;top:50%;width:90px;text-align:center;font-size:22px;font-weight:900;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.8);transform-origin:0 0}
-.s1{transform:rotate(36deg) translateX(68px)}
-.s2{transform:rotate(108deg) translateX(68px)}
-.s3{transform:rotate(180deg) translateX(68px)}
-.s4{transform:rotate(252deg) translateX(68px)}
-.s5{transform:rotate(324deg) translateX(68px)}
-.pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:34px solid #facc15;z-index:5;filter:drop-shadow(0 3px 3px rgba(0,0,0,0.5))}
+/* STYLISH TASK PROGRESS TIMELINE (REF: 97275.png) */
+.task-header-box{background:linear-gradient(135deg,#7c3aed,#3b82f6);border-radius:20px;padding:18px;margin-bottom:16px;position:relative}
+.task-top-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.task-stats-row{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.2);padding:12px 14px;border-radius:14px}
+.circular-progress{position:relative;width:60px;height:60px;border-radius:50%;background:conic-gradient(#22c55e 75%, rgba(255,255,255,0.2) 0deg);display:grid;place-items:center}
+.circular-inner{width:48px;height:48px;background:#13113d;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700}
 
-.result{text-align:center;display:none;padding:14px;background:#22c55e22;border:1px solid #22c55e66;border-radius:15px;margin-top:12px}.result.show{display:block}.result strong{font-size:24px}
-.lucky{height:190px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#ec4899,#7c3aed);display:grid;place-items:center;font-size:60px}
-.quiz-q{font-size:21px;font-weight:800;text-align:center;background:#ffffff0b;padding:22px;border-radius:16px;margin-bottom:14px}
-.answers{display:grid;gap:10px}.answers button{padding:14px;border-radius:13px;background:#ffffff12;color:#fff;text-align:left}
+.timeline{position:relative;padding-left:24px;margin-top:15px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:rgba(255,255,255,0.2)}
+.timeline-item{position:relative;margin-bottom:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:12px;border-radius:14px;display:flex;justify-content:space-between;align-items:center}
+.timeline-dot{position:absolute;left:-24px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#22c55e;border-radius:50%;display:grid;place-items:center;font-size:10px;color:#fff;border:2px solid #13113d}
+.timeline-dot.pending{background:#64748b}
+
+/* REALISTIC PRO SPIN WHEEL */
+.wheel-wrap{position:relative;width:280px;height:280px;margin:15px auto;filter:drop-shadow(0 0 20px rgba(139,92,246,0.5))}
+#wheel{width:280px;height:280px;border-radius:50%;position:relative;transition:transform 4.5s cubic-bezier(0.15,0.85,0.12,1);border:10px solid #111;box-shadow:inset 0 0 15px rgba(0,0,0,0.8),0 0 25px rgba(255,255,255,0.15);background:conic-gradient(#ef4444 0deg 30deg,#3b82f6 30deg 60deg,#10b981 60deg 90deg,#a855f7 90deg 120deg,#f59e0b 120deg 150deg,#ef4444 150deg 180deg,#3b82f6 180deg 210deg,#10b981 210deg 240deg,#a855f7 240deg 270deg,#f59e0b 270deg 300deg,#ef4444 300deg 330deg,#22d3ee 330deg 360deg)}
+#wheel::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:radial-gradient(circle,#333 40%,#111 100%);border-radius:50%;border:3px solid #fff;box-shadow:0 0 8px rgba(0,0,0,0.8);z-index:4}
+#wheel span{position:absolute;left:50%;top:50%;width:65px;text-align:center;font-size:14px;font-weight:900;color:#fff;text-shadow:0 2px 3px rgba(0,0,0,0.9);transform-origin:0 0}
+.s1{transform:rotate(15deg) translateX(65px)}.s2{transform:rotate(45deg) translateX(65px)}.s3{transform:rotate(75deg) translateX(65px)}.s4{transform:rotate(105deg) translateX(65px)}.s5{transform:rotate(135deg) translateX(65px)}.s6{transform:rotate(165deg) translateX(65px)}.s7{transform:rotate(195deg) translateX(65px)}.s8{transform:rotate(225deg) translateX(65px)}.s9{transform:rotate(255deg) translateX(65px)}.s10{transform:rotate(285deg) translateX(65px)}.s11{transform:rotate(315deg) translateX(65px)}.s12{transform:rotate(345deg) translateX(65px)}
+.pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:30px solid #facc15;z-index:6;filter:drop-shadow(0 3px 3px rgba(0,0,0,0.5))}
+
+.result{text-align:center;display:none;padding:10px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:12px;margin-top:10px;font-size:13px}.result.show{display:block}.result strong{font-size:20px}
+.lucky{height:150px;border-radius:16px;background:linear-gradient(135deg,#f59e0b,#ec4899,#7c3aed);display:grid;place-items:center;font-size:50px}
+.quiz-q{font-size:15px;font-weight:700;text-align:center;background:rgba(255,255,255,0.04);padding:16px;border-radius:14px;margin-bottom:12px}
+.answers{display:grid;gap:8px}.answers button{padding:12px;border-radius:12px;background:rgba(255,255,255,0.08);color:#fff;text-align:left;font-size:13px;font-weight:600}
 .surveyPage{display:none;position:fixed;inset:0;background:#050714;z-index:40;overflow:auto}
-.surveyPage.show{display:block}.surveyInner{max-width:520px;margin:auto;padding-bottom:40px}
-.surveyHead{display:flex;align-items:center;gap:12px;padding:18px 16px;position:sticky;top:0;background:#0c1030ee;backdrop-filter:blur(10px);z-index:5}
-.back{width:38px;height:38px;border-radius:12px;background:#ffffff12;color:#fff;font-size:20px}
-.surveyHead h2{font-size:20px}.surveyCount{text-align:center;color:#aaa;padding:8px 16px 15px}
-.survey{margin:10px 16px;padding:17px;background:#ffffff0c;border:1px solid #ffffff12;border-radius:18px}
-.survey b{display:block;font-size:16px;margin-bottom:6px}.survey small{color:#999}.survey .btn{margin-top:11px}
-input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;background:#ffffff0d;color:#fff;margin:7px 0;outline:none}
-.history div{padding:12px;background:#ffffff0b;border-radius:12px;margin-top:8px;font-size:13px}
-.toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-120px);background:#151a38;border:1px solid #ffffff20;padding:13px 18px;border-radius:14px;z-index:100;transition:.4s;box-shadow:0 10px 30px #0007}.toast.show{transform:translate(-50%,0)}
-.confetti{position:fixed;z-index:99;top:-10px;font-size:22px;animation:fall 1.5s linear forwards;pointer-events:none}
+.surveyPage.show{display:block}.surveyInner{max-width:480px;margin:auto;padding-bottom:40px}
+.surveyHead{display:flex;align-items:center;gap:10px;padding:14px 18px;position:sticky;top:0;background:rgba(12,16,48,0.95);backdrop-filter:blur(10px);z-index:5}
+.back{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.1);color:#fff;font-size:18px;display:grid;place-items:center}
+.surveyHead h2{font-size:16px}.surveyCount{text-align:center;color:#94a3b8;padding:10px 16px;font-size:12px}
+.survey{margin:8px 16px;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
+.survey b{display:block;font-size:14px;margin-bottom:4px}.survey small{color:#94a3b8;font-size:11px}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;margin:6px 0;outline:none;font-size:13px}
+.toast{position:fixed;top:15px;left:50%;transform:translate(-50%,-120px);background:#1e1b4b;border:1px solid rgba(255,255,255,0.2);padding:10px 18px;border-radius:14px;z-index:200;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,0.6);font-size:13px;font-weight:600}
+.toast.show{transform:translate(-50%,0)}
+.confetti{position:fixed;z-index:199;top:-10px;font-size:20px;animation:fall 1.5s linear forwards;pointer-events:none}
 @keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
 </style>
 </head>
@@ -72,7 +109,7 @@ input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;back
 <!-- LOGIN SCREEN -->
 <div class="login-container" id="loginContainer">
 <div class="login-box">
-<h2>🚀 CoinRush Pro Login</h2>
+<h2>🚀 CoinRush Pro</h2>
 <p>Enter your mobile number and password</p>
 <input id="loginNumber" type="tel" placeholder="Mobile Number (10 digits)" maxlength="10">
 <input id="loginPassword" type="password" placeholder="Password">
@@ -82,49 +119,144 @@ input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;back
 
 <!-- ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
 <h2>🛡️ Owner Admin Panel</h2>
-<button class="btn" style="width:auto;padding:8px 15px;background:#ef4444;" onclick="closeAdmin()">LOGOUT ADMIN</button>
+<button class="btn" style="width:auto;padding:6px 12px;background:#ef4444;" onclick="closeAdmin()">LOGOUT</button>
 </div>
-<p style="color:#aaa;margin-bottom:15px;">Yahan aapke device ke withdrawal records dikhenge:</p>
+<p style="color:#aaa;margin-bottom:12px;font-size:12px">Withdrawal requests:</p>
 <div id="adminWithdrawList"></div>
 </div>
 
 <!-- MAIN APP -->
 <div class="app" id="mainApp">
 <header>
-<div class="profile"><div class="avatar">👤</div><div><div class="name" id="userName">CoinRush Pro</div><div class="id" id="userPhone">Reward Member</div></div></div>
-<div class="balance">🪙 <span id="topCoins">0</span></div>
+<div class="profile">
+<div class="avatar">👤</div>
+<div><div class="name" id="userName">CoinRush Pro</div><div class="id" id="userPhone">Member</div></div>
+</div>
+<div class="balance-pill">🪙 <span id="topCoins">0</span></div>
 </header>
 
-<section class="hero">
-<h1>Earn More Coins 🚀</h1>
-<p>Play games, complete tasks and collect daily rewards.</p>
-<div class="coins">🪙 <span id="coins">0</span></div>
+<!-- HERO BALANCE CARD (REF: 97274.jpg) -->
+<section class="hero-card">
+<div class="hero-title">Total Balance</div>
+<div class="hero-balance-row">
+<div class="hero-amount">🪙 <span id="coins">0</span></div>
+</div>
+<div class="hero-btns">
+<button class="hero-btn" onclick="openWithdraw()">💳 Withdraw</button>
+<button class="hero-btn" onclick="dailyBonus()" id="heroBonusBtn">🎁 Daily Bonus</button>
+</div>
 </section>
 
-<div class="grid">
-<div class="card"><div class="icon">🎁</div><h3>Daily Bonus</h3><p>Claim once every day.</p><button class="btn" id="bonusBtn" onclick="dailyBonus()">CLAIM</button></div>
-<div class="card"><div class="icon">📺</div><h3>Watch Ads</h3><p>Complete a demo ad task.</p><button class="btn" onclick="watchAd()">EARN 25</button></div>
-<div class="card"><div class="icon">🎡</div><h3>Spin Wheel</h3><p>5 spins available every day.</p><button class="btn" onclick="openModal('wheelModal')">SPIN</button></div>
-<div class="card"><div class="icon">🃏</div><h3>Lucky Card</h3><p>One lucky card every day.</p><button class="btn" onclick="openLucky()">PLAY</button></div>
+<div class="section-header">
+EARN NOW <span onclick="openTaskModal()">View Timeline & Tasks →</span>
 </div>
-
-<div class="full card"><div class="icon">🧠</div><h3>Unlimited Quiz</h3><p>Easy Math & GK (Class 5-10 level). Unlimited questions!</p><button class="btn" onclick="startQuiz()">START QUIZ</button></div>
-
-<div class="full card"><div class="icon">📋</div><h3>Survey Center</h3><p>25 coins per survey • 20 maximum per day.</p><button class="btn" onclick="openSurveyPage()">OPEN SURVEY CENTER</button></div>
 
 <div class="grid">
-<div class="card"><div class="icon">📥</div><h3>Download App</h3><p>Earn 100 coins on downloading new app.</p><button class="btn" onclick="openDownloadTask()">EARN 100</button></div>
-<div class="card"><div class="icon">👥</div><h3>Invite Friends</h3><p>Share via WhatsApp or Telegram.</p><button class="btn" onclick="openModal('refModal')">INVITE</button></div>
+<div class="card">
+<div class="badge-tag">Earn 25 Coins</div>
+<div class="icon">📺</div>
+<h3>Watch Ads</h3>
+<p>Watch sponsor ads & earn coins.</p>
+<button class="btn" onclick="watchAd()">EARN 25</button>
 </div>
 
-<div class="full card"><div class="icon">💳</div><h3>Withdrawal History</h3><p>View previous withdrawal requests.</p><button class="btn" onclick="openHistory()">VIEW HISTORY</button></div>
-
-<button class="btn" style="background:#ef4444;margin-top:20px;" onclick="logout()">LOGOUT</button>
+<div class="card">
+<div class="badge-tag">Up to 100 Coins</div>
+<div class="icon">🎡</div>
+<h3>Lucky Spin</h3>
+<p>Spin & win exciting rewards.</p>
+<button class="btn" onclick="openModal('wheelModal')">SPIN</button>
 </div>
+
+<div class="card">
+<div class="badge-tag">Earn 100 Coins</div>
+<div class="icon">📥</div>
+<h3>Download App</h3>
+<p>Earn coins on downloading new app.</p>
+<button class="btn" onclick="openDownloadTask()">EARN 100</button>
+</div>
+
+<div class="card">
+<div class="badge-tag">Earn 25 Coins</div>
+<div class="icon">🧠</div>
+<h3>Unlimited Quiz</h3>
+<p>Easy Math & GK questions.</p>
+<button class="btn" onclick="startQuiz()">START QUIZ</button>
+</div>
+</div>
+
+<div class="full card" style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(59,130,246,0.15));">
+<div class="badge-tag">25 coins / survey</div>
+<div class="icon">📋</div>
+<h3>Survey Center</h3>
+<p>Complete surveys and boost your earnings daily.</p>
+<button class="btn" onclick="openSurveyPage()">OPEN SURVEY</button>
+</div>
+
+<div class="grid">
+<div class="card">
+<div class="icon">🃏</div>
+<h3>Lucky Card</h3>
+<p>One lucky card every day.</p>
+<button class="btn" onclick="openLucky()">PLAY</button>
+</div>
+<div class="card">
+<div class="icon">👥</div>
+<h3>Invite Friends</h3>
+<p>Share via WhatsApp or Telegram.</p>
+<button class="btn" onclick="openModal('refModal')">INVITE</button>
+</div>
+</div>
+
+<div class="full card">
+<div class="icon">📜</div>
+<h3>Withdrawal History</h3>
+<p>View previous withdrawal requests.</p>
+<button class="btn" onclick="openHistory()">VIEW HISTORY</button>
+</div>
+
+<button class="btn" style="background:#ef4444;margin:10px 16px;width:calc(100% - 32px);" onclick="logout()">LOGOUT</button>
 
 <button class="withdraw" onclick="openWithdraw()">💰 WITHDRAW COINS</button>
+
+<!-- BOTTOM NAVIGATION BAR (REF: 97274.jpg) -->
+<nav class="bottom-nav">
+<button class="nav-item active" onclick="switchNav('home')"><span>🏠</span>Home</button>
+<button class="nav-item" onclick="openTaskModal()"><span>🎁</span>Earn Tasks</button>
+<button class="nav-item" onclick="openWithdraw()"><span>💳</span>Wallet</button>
+<button class="nav-item" onclick="openModal('refModal')"><span>👤</span>Profile</button>
+</nav>
+</div>
+
+<!-- TASK PROGRESS & REWARDS MODAL (REF: 97275.png) -->
+<div class="modal" id="taskModal">
+<div class="box">
+<button class="close" onclick="closeModal('taskModal')">×</button>
+<h2>📊 Task Progress & Rewards</h2>
+
+<div class="task-header-box">
+<div style="font-size:16px;font-weight:800;margin-bottom:4px;">Richie Games - Play & Earn</div>
+<div style="font-size:11px;color:#e0e7ff;margin-bottom:12px;">Complete tasks below to unlock big coin rewards!</div>
+<div class="task-stats-row">
+<div>
+<div style="font-size:14px;font-weight:900;" id="modalCoinsEarned">1325 Coins earned</div>
+<div style="font-size:10px;color:#cbd5e1;" id="modalTaskStatus">Great job! You completed tasks!</div>
+</div>
+<div class="circular-progress">
+<div class="circular-inner"><span id="percentText">75%</span></div>
+</div>
+</div>
+</div>
+
+<div style="font-size:13px;font-weight:800;margin-bottom:6px;">🎁 Rewards Timeline</div>
+<div class="timeline" id="timelineList">
+<!-- Timeline injected via JS -->
+</div>
+
+<button class="btn" onclick="closeModal('taskModal')">Continue →</button>
+</div>
 </div>
 
 <!-- MODALS -->
@@ -134,39 +266,37 @@ input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;back
 <div class="wheel-wrap">
 <div class="pointer"></div>
 <div id="wheel">
-<span class="s1">10</span>
-<span class="s2">15</span>
-<span class="s3">20</span>
-<span class="s4">15</span>
-<span class="s5">100</span>
+<span class="s1">10</span><span class="s2">15</span><span class="s3">20</span><span class="s4">10</span>
+<span class="s5">15</span><span class="s6">20</span><span class="s7">10</span><span class="s8">15</span>
+<span class="s9">20</span><span class="s10">15</span><span class="s11">10</span><span class="s12">100</span>
 </div>
 </div>
 <div class="result" id="spinResult"><strong id="spinWon"></strong><br>🎉 Congratulations!</div>
 <button class="btn" id="spinButton" onclick="spinWheel()">🎡 SPIN NOW</button>
-<p id="spinLeft" style="text-align:center;color:#aaa;margin-top:10px"></p>
+<p id="spinLeft" style="text-align:center;color:#aaa;margin-top:8px;font-size:12px"></p>
 </div></div>
 
 <div class="modal" id="luckyModal"><div class="box">
 <button class="close" onclick="closeModal('luckyModal')">×</button><h2>🃏 Lucky Card</h2>
 <div class="lucky" id="luckyCard">🎁</div>
 <button class="btn" id="luckyBtn" onclick="chooseLucky()">REVEAL CARD</button>
-<p id="luckyResult" style="text-align:center;margin-top:15px"></p>
+<p id="luckyResult" style="text-align:center;margin-top:12px;font-size:12px"></p>
 </div></div>
 
 <div class="modal" id="quizModal"><div class="box">
 <button class="close" onclick="closeModal('quizModal')">×</button><h2>🧠 Quiz Challenge</h2>
-<p id="quizType" style="text-align:center;color:#aaa"></p>
+<p id="quizType" style="text-align:center;color:#aaa;font-size:12px"></p>
 <div class="quiz-q" id="quizQuestion"></div>
 <div class="answers" id="answers"></div>
-<p id="quizResult" style="text-align:center;margin-top:15px;font-weight:800"></p>
+<p id="quizResult" style="text-align:center;margin-top:12px;font-weight:700;font-size:12px"></p>
 </div></div>
 
 <div class="modal" id="withdrawModal"><div class="box">
 <button class="close" onclick="closeModal('withdrawModal')">×</button><h2>💰 Withdrawal</h2>
-<p style="color:#aaa;text-align:center">Minimum 4,000 • Maximum 20,000 coins/day</p>
+<p style="color:#aaa;text-align:center;font-size:12px;margin-bottom:10px">Min 4,000 • Max 20,000 coins/day</p>
 <input id="withdrawCoins" type="number" placeholder="Enter coins">
 <input id="upi" type="text" placeholder="Enter UPI ID">
-<button class="btn" onclick="submitWithdraw()">REQUEST WITHDRAWAL & SEND DM</button>
+<button class="btn" onclick="submitWithdraw()">REQUEST & SEND WHATSAPP</button>
 </div></div>
 
 <div class="modal" id="historyModal"><div class="box">
@@ -176,9 +306,9 @@ input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff20;back
 
 <div class="modal" id="refModal"><div class="box">
 <button class="close" onclick="closeModal('refModal')">×</button><h2>👥 Invite & Share</h2>
-<p style="color:#aaa;text-align:center;margin-bottom:12px;font-size:13px">Share your referral link with friends on WhatsApp or Telegram!</p>
+<p style="color:#aaa;text-align:center;margin-bottom:10px;font-size:12px">Share your referral link with friends!</p>
 <input id="refLink" value="https://play.google.com/store/apps/details?id=com.coinrush.reward" readonly>
-<button class="btn" style="background:#25D366;margin-bottom:8px;" onclick="shareWhatsApp()">📱 SHARE ON WHATSAPP</button>
+<button class="btn" style="background:#25D366;margin-bottom:6px;" onclick="shareWhatsApp()">📱 SHARE ON WHATSAPP</button>
 <button class="btn" style="background:#0088cc;" onclick="shareTelegram()">✈️ SHARE ON TELEGRAM</button>
 </div></div>
 
@@ -210,7 +340,6 @@ document.getElementById("loginContainer").style.display = "none";
 openAdminPanel();
 return;
 }
-
 let savedUser = localStorage.getItem("userPhone");
 if(savedUser) {
 document.getElementById("loginContainer").style.display = "none";
@@ -230,16 +359,14 @@ openAdminPanel();
 toast("Welcome Admin!");
 return;
 }
-
 if(number.length !== 10 || isNaN(number)) {
-toast("Please enter a valid 10-digit mobile number");
+toast("Enter valid 10-digit mobile number");
 return;
 }
 if(password.length < 4) {
-toast("Password must be at least 4 characters");
+toast("Password must be 4+ characters");
 return;
 }
-
 localStorage.setItem("userPhone", number);
 document.getElementById("loginContainer").style.display = "none";
 document.getElementById("mainApp").classList.add("show");
@@ -261,26 +388,26 @@ function renderAdminRequests() {
 let arr = JSON.parse(localStorage.getItem("withdrawals") || "[]");
 let box = document.getElementById("adminWithdrawList");
 if(!arr.length) {
-box.innerHTML = "<p style='text-align:center;color:#aaa;'>No pending withdrawal requests.</p>";
+box.innerHTML = "<p style='text-align:center;color:#aaa;font-size:12px'>No pending requests.</p>";
 return;
 }
 box.innerHTML = arr.map((x, i) => `
 <div class="admin-card">
-<p><b>User UPI:</b> ${x.upi}</p>
+<p><b>UPI:</b> ${x.upi}</p>
 <p><b>Amount:</b> ${x.amount} Coins</p>
 <p><b>Date:</b> ${x.date}</p>
 <p><b>Status:</b> <span style="color:${x.status.includes('Paid')?'#22c55e':'#f59e0b'}">${x.status}</span></p>
-<button class="btn" style="background:#22c55e;margin-top:8px;padding:8px;" onclick="approveWithdraw(${i})">MARK AS PAID / APPROVED</button>
+<button class="btn" style="background:#22c55e;margin-top:6px;padding:6px;" onclick="approveWithdraw(${i})">APPROVE / PAID</button>
 </div>
 `).join("");
 }
 
 function approveWithdraw(index) {
 let arr = JSON.parse(localStorage.getItem("withdrawals") || "[]");
-arr[index].status = "Paid ✓ (Approved)";
+arr[index].status = "Paid ✓";
 localStorage.setItem("withdrawals", JSON.stringify(arr));
 renderAdminRequests();
-toast("Withdrawal approved!");
+toast("Approved!");
 }
 
 function logout() {
@@ -297,83 +424,126 @@ document.getElementById("topCoins").textContent=coins;
 function toast(t){
 let x=document.getElementById("toast");
 x.textContent=t;x.classList.add("show");
-setTimeout(()=>x.classList.remove("show"),2200);
+setTimeout(()=>x.classList.remove("show"),2000);
 }
 
 function openModal(id){document.getElementById(id).classList.add("show")}
 function closeModal(id){document.getElementById(id).classList.remove("show")}
+
+function switchNav(tab) {
+document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+event.currentTarget.classList.add('active');
+}
+
+function openTaskModal() {
+openModal('taskModal');
+renderTimeline();
+}
+
+function renderTimeline() {
+let completedTasks = Number(localStorage.getItem("completedTasksCount") || 3);
+let totalCoinsEarned = coins > 1325 ? coins : 1325;
+document.getElementById("modalCoinsEarned").textContent = totalCoinsEarned + " Coins earned";
+document.getElementById("modalTaskStatus").textContent = `Great job! You completed ${completedTasks} / 6 tasks!`;
+
+let timelineData = [
+{title: "Install 1 game", reward: "+100 Coins", done: true},
+{title: "Install 2 games", reward: "+100 Coins", done: true},
+{title: "Earn 100k coins", reward: "+375 Coins", done: true},
+{title: "Complete 5 Daily Surveys", reward: "+250 Coins", done: completedTasks >= 4},
+{title: "Refer 3 Friends", reward: "+500 Coins", done: completedTasks >= 5}
+];
+
+let html = "";
+timelineData.forEach((item, idx) => {
+html += `
+<div class="timeline-item">
+<div class="timeline-dot ${item.done ? '' : 'pending'}">${item.done ? '✓' : idx+1}</div>
+<div>
+<div style="font-size:13px;font-weight:700;">${item.title}</div>
+<div style="font-size:11px;color:#94a3b8;">Status: ${item.done ? '<span style="color:#22c55e">Completed ✓</span>' : '<span style="color:#f59e0b">Pending</span>'}</div>
+</div>
+<div style="font-size:12px;font-weight:800;color:#a78bfa;">${item.reward}</div>
+</div>
+`;
+});
+document.getElementById("timelineList").innerHTML = html;
+}
 
 function addCoins(n){
 coins+=n;save();toast("🪙 +"+n+" Coins added!");
 }
 
 function celebrate(){
-for(let i=0;i<35;i++){
+for(let i=0;i<25;i++){
 let e=document.createElement("div");
 e.className="confetti";
 e.textContent=["🎉","✨","🪙","🎊"][Math.floor(Math.random()*4)];
 e.style.left=Math.random()*100+"vw";
-e.style.animationDelay=Math.random()*0.4+"s";
+e.style.animationDelay=Math.random()*0.3+"s";
 document.body.appendChild(e);
-setTimeout(()=>e.remove(),1800);
+setTimeout(()=>e.remove(),1500);
 }
 }
 
 function dailyBonus(){
 if(localStorage.getItem("lastBonus")===today()){
-toast("🎁 Daily bonus already claimed");return;
+toast("🎁 Already claimed today");return;
 }
 localStorage.setItem("lastBonus",today());
 addCoins(100);celebrate();updateBonus();
 }
 
 function updateBonus(){
-let b=document.getElementById("bonusBtn");
+let b=document.getElementById("heroBonusBtn");
 if(localStorage.getItem("lastBonus")===today()){
 b.textContent="CLAIMED ✓";b.disabled=true;
 }
 }
 
+const adNetworks = [
+"https://www.monetag.com",
+"https://www.adsterra.com",
+"https://cpx-research.com",
+"https://bitlabs.ai",
+"https://www.pollfish.com"
+];
+
 function watchAd(){
+let adIndex = Number(localStorage.getItem("nextAdIndex") || 0);
+let targetAdUrl = adNetworks[adIndex % adNetworks.length];
+localStorage.setItem("nextAdIndex", adIndex + 1);
+window.open(targetAdUrl, "_blank");
+setTimeout(() => {
 addCoins(25);
-toast("📺 Demo ad task completed");
+toast("📺 +25 Coins added!");
+celebrate();
+}, 1000);
 }
 
-/* DYNAMIC DOWNLOAD APPS TASK (NEW APPS ON EVERY CLICK) */
 const playStoreApps = [
 "https://play.google.com/store/apps/details?id=com.whatsapp",
 "https://play.google.com/store/apps/details?id=com.instagram.android",
 "https://play.google.com/store/apps/details?id=in.mohalla.sharechat",
 "https://play.google.com/store/apps/details?id=com.josh.droid",
-"https://play.google.com/store/apps/details?id=mx.makeup.camera.editor",
-"https://play.google.com/store/apps/details?id=com.truecaller",
-"https://play.google.com/store/apps/details?id=com.spotify.music",
-"https://play.google.com/store/apps/details?id=in.startv.hotstar",
-"https://play.google.com/store/apps/details?id=com.zee5.app",
-"https://play.google.com/store/apps/details?id=com.jio.jioplay"
+"https://play.google.com/store/apps/details?id=com.truecaller"
 ];
 
 function openDownloadTask() {
 let appIndex = Number(localStorage.getItem("nextAppIndex") || 0);
 let targetUrl = playStoreApps[appIndex % playStoreApps.length];
-
-// Next app index update for subsequent clicks
 localStorage.setItem("nextAppIndex", appIndex + 1);
-
 window.open(targetUrl, "_blank");
-
-// Reward after opening & downloading task simulation
 setTimeout(() => {
 addCoins(100);
 celebrate();
-toast("🎉 100 Coins credited for App Download!");
-}, 1500);
+toast("🎉 +100 Coins credited!");
+}, 1200);
 }
 
-/* SHARE VIA WHATSAPP & TELEGRAM */
 function shareWhatsApp(){
 let link = document.getElementById("refLink").value;
-let msg = encodeURIComponent("🔥 Sabse best earning app! Is link se join karo aur turant coins jeeto: " + link);
+let msg = encodeURIComponent("🔥 Best earning app! Join now: " + link);
 window.open("https://api.whatsapp.com/send?text=" + msg, "_blank");
 navigator.clipboard.writeText(link);
 toast("Link copied & WhatsApp opened!");
@@ -381,13 +551,12 @@ toast("Link copied & WhatsApp opened!");
 
 function shareTelegram(){
 let link = document.getElementById("refLink").value;
-let text = encodeURIComponent("🔥 Sabse best earning app! Is link se join karo aur turant coins jeeto: " + link);
+let text = encodeURIComponent("🔥 Best earning app! Join now: " + link);
 window.open("https://t.me/share/url?url=" + encodeURIComponent(link) + "&text=" + text, "_blank");
 navigator.clipboard.writeText(link);
 toast("Link copied & Telegram opened!");
 }
 
-/* WHEEL PRO LOGIC (99% small rewards, 1% big reward 100) */
 function resetSpin(){
 if(localStorage.getItem("spinDate")!==today()){
 localStorage.setItem("spinDate",today());
@@ -398,7 +567,7 @@ localStorage.setItem("spinCount","0");
 function spinWheel(){
 resetSpin();
 let count=Number(localStorage.getItem("spinCount")||0);
-if(count>=5){toast("🔒 Today's 5 spins are completed");return;}
+if(count>=5){toast("🔒 5 spins completed today");return;}
 if(spinning)return;
 spinning=true;
 
@@ -409,32 +578,28 @@ let result=document.getElementById("spinResult");
 button.disabled=true;
 result.classList.remove("show");
 
-// 99% chance for small rewards [10, 15, 20, 15], 1% chance for 100
 let randChance = Math.random();
 let reward = 10;
-let targetSegmentIndex = 0; // default 10 (s1)
+let targetSegmentIndex = 0;
 
 if(randChance < 0.01) {
-// 1% chance -> 100 coins (segment s5, angle index 4 -> 324 deg)
 reward = 100;
-targetSegmentIndex = 4;
+targetSegmentIndex = 11;
 } else {
-// 99% chance -> small rewards [10, 15, 20, 15] (indices 0, 1, 2, 3)
-let smallRewards = [
-{val: 10, idx: 0},
-{val: 15, idx: 1},
-{val: 20, idx: 2},
-{val: 15, idx: 3}
+let smallOptions = [
+{val:10, idx:0}, {val:15, idx:1}, {val:20, idx:2},
+{val:10, idx:3}, {val:15, idx:4}, {val:20, idx:5},
+{val:10, idx:6}, {val:15, idx:7}, {val:20, idx:8},
+{val:15, idx:9}, {val:10, idx:10}
 ];
-let chosen = smallRewards[Math.floor(Math.random() * smallRewards.length)];
+let chosen = smallOptions[Math.floor(Math.random() * smallOptions.length)];
 reward = chosen.val;
 targetSegmentIndex = chosen.idx;
 }
 
 let extraSpins = 6 + Math.floor(Math.random()*3);
-// Each segment is 72 degrees. Center of segment = index * 72 + 36
-let segmentAngle = targetSegmentIndex * 72 + 36;
-wheelRotation += extraSpins * 360 + (360 - segmentAngle);
+let sliceAngle = targetSegmentIndex * 30 + 15;
+wheelRotation += extraSpins * 360 + (360 - sliceAngle);
 
 localStorage.setItem("wheelRotation", wheelRotation);
 wheel.style.transform = "rotate(" + wheelRotation + "deg)";
@@ -460,11 +625,10 @@ resetSpin();
 let c=Number(localStorage.getItem("spinCount")||0);
 document.getElementById("spinLeft").textContent=(5-c)+" spins left today";
 let b=document.getElementById("spinButton");
-if(c>=5){b.textContent="🔒 5 SPINS COMPLETED";b.disabled=true;}
+if(c>=5){b.textContent="🔒 COMPLETED";b.disabled=true;}
 else{b.textContent="🎡 SPIN NOW • "+(5-c)+" LEFT";}
 }
 
-/* LUCKY CARD */
 function openLucky(){
 openModal("luckyModal");
 let used=localStorage.getItem("luckyDate")===today();
@@ -479,14 +643,13 @@ localStorage.setItem("luckyDate",today());
 let rewards=[30,50,75,100];
 let reward=rewards[Math.floor(Math.random()*rewards.length)];
 document.getElementById("luckyCard").textContent="🪙 "+reward;
-document.getElementById("luckyResult").textContent="🎉 Congratulations! You won "+reward+" Coins!";
+document.getElementById("luckyResult").textContent="🎉 Won "+reward+" Coins!";
 document.getElementById("luckyBtn").textContent="USED TODAY";
 document.getElementById("luckyBtn").disabled=true;
 addCoins(reward);
 celebrate();
 }
 
-/* QUIZ */
 const math=[
 ["What is 12 + 15?",["25","27","30","22"],1],
 ["What is 5 × 8?",["35","40","45","50"],1],
@@ -496,11 +659,11 @@ const math=[
 ];
 
 const gk=[
-["Which is the national animal of India?",["Lion","Tiger","Elephant","Horse"],1],
-["How many days are there in a leap year?",["365","366","364","367"],1],
-["Which is the largest continent?",["Africa","Asia","Europe","Australia"],1],
-["What color is a clear sky?",["Green","Red","Blue","Yellow"],2],
-["Which gas do humans need to breathe?",["Carbon Dioxide","Nitrogen","Oxygen","Hydrogen"],2]
+["Which is national animal of India?",["Lion","Tiger","Elephant","Horse"],1],
+["Days in a leap year?",["365","366","364","367"],1],
+["Largest continent?",["Africa","Asia","Europe","Australia"],1],
+["Color of clear sky?",["Green","Red","Blue","Yellow"],2],
+["Gas humans need to breathe?",["Carbon Dioxide","Nitrogen","Oxygen","Hydrogen"],2]
 ];
 
 function startQuiz(){
@@ -520,7 +683,6 @@ document.getElementById("quizResult").textContent="";
 
 let box=document.getElementById("answers");
 box.innerHTML="";
-
 q[1].forEach((a,i)=>{
 let b=document.createElement("button");
 b.textContent=a;
@@ -531,45 +693,32 @@ box.appendChild(b);
 
 function answer(i,correct){
 let result=document.getElementById("quizResult");
-
 if(i===correct){
-result.textContent="🎉 Sahi Jawab! +25 Coins";
+result.textContent="🎉 Correct! +25 Coins";
 result.style.color="#4ade80";
 addCoins(25);
 celebrate();
 }else{
-result.textContent="❌ Galat Jawab! Agla question aa raha hai...";
+result.textContent="❌ Wrong answer!";
 result.style.color="#fb7185";
 }
-
 setTimeout(()=>{
 quizIndex++;
 nextQuestion();
-}, 1200);
+}, 1000);
 }
 
-/* SURVEY CENTER */
 const surveys=[
-["Cint Global Consumer Survey", "https://www.cint.com"],
-["Pollfish Market Opinion Poll", "https://www.pollfish.com"],
+["Cint Consumer Survey", "https://www.cint.com"],
+["Pollfish Market Opinion", "https://www.pollfish.com"],
 ["Toluna Influencers Panel", "https://www.toluna.com"],
-["CPX Research Offerwall Survey", "https://cpx-research.com"],
-["BitLabs Market Research Task", "https://bitlabs.ai"],
-["TheoremReach Opinion Survey", "https://www.theoremreach.com"],
+["CPX Research Survey", "https://cpx-research.com"],
+["BitLabs Market Research", "https://bitlabs.ai"],
+["TheoremReach Opinion", "https://www.theoremreach.com"],
 ["Yuno Surveys & Polls", "https://www.yuno.so"],
-["InBrain AI Consumer Insights", "https://inbrain.ai"],
-["YouGov Public Opinion Study", "https://today.yougov.com"],
-["Ipsos iSay Consumer Panel", "https://www.ipsosisay.com"],
-["AttaPoll Mobile Survey Hub", "https://attapoll.com"],
-["Lifepoints Panel Discussion", "https://www.lifepointspanel.com"],
-["Swagbucks Opinion Research", "https://www.swagbucks.com"],
-["Branded Surveys Portal", "https://brandedsurveys.com"],
-["PrizeRebel Daily Survey Wall", "https://www.prizerebel.com"],
-["Toluna Quick Polls", "https://www.toluna.com"],
-["Cint Market Research Task 2", "https://www.cint.com"],
-["Pollfish Daily Insights", "https://www.pollfish.com"],
-["CPX Research Survey Wall 2", "https://cpx-research.com"],
-["BitLabs Global Research Poll", "https://bitlabs.ai"]
+["InBrain AI Insights", "https://inbrain.ai"],
+["YouGov Public Opinion", "https://today.yougov.com"],
+["Ipsos iSay Panel", "https://www.ipsosisay.com"]
 ];
 
 function surveyReset(){
@@ -593,40 +742,34 @@ function renderSurveys(){
 surveyReset();
 let done=Number(localStorage.getItem("surveyDone")||0);
 document.getElementById("surveyCount").textContent=done+" / 20 surveys completed today";
-
 let list=document.getElementById("surveyList");
 list.innerHTML="";
-
 if(done>=20){
-list.innerHTML="<div class='survey'><b>🔒 Daily Limit Reached</b><small>20 surveys completed. Come back tomorrow!</small></div>";
+list.innerHTML="<div class='survey'><b>🔒 Daily Limit Reached</b><small>Come back tomorrow!</small></div>";
 return;
 }
-
 surveys.forEach((s,i)=>{
-if(i<done)return;
+if(i>=10)return;
 let d=document.createElement("div");
 d.className="survey";
-d.innerHTML=`<b>📋 ${s[0]}</b><small>Reward: 25 Coins • Live Survey Network</small><button class='btn' onclick='startRealSurvey("${s[1]}", 25, ${i})'>START SURVEY (+25)</button>`;
+d.innerHTML=`<b>📋 ${s[0]}</b><small>Reward: 25 Coins</small><button class='btn' onclick='startRealSurvey("${s[1]}", 25)'>START SURVEY (+25)</button>`;
 list.appendChild(d);
 });
 }
 
-function startRealSurvey(url, reward, index){
+function startRealSurvey(url){
 surveyReset();
 let done=Number(localStorage.getItem("surveyDone")||0);
 if(done>=20) return;
-
 window.open(url, "_blank");
-
 done++;
 localStorage.setItem("surveyDone", done);
-addCoins(reward);
-toast("📋 Survey opened! +25 Coins added.");
+addCoins(25);
+toast("📋 Survey opened! +25 Coins.");
 celebrate();
 renderSurveys();
 }
 
-/* WITHDRAWAL & WHATSAPP DM */
 function openWithdraw(){ openModal("withdrawModal"); }
 
 function submitWithdraw(){
@@ -635,31 +778,29 @@ let upi=document.getElementById("upi").value.trim();
 let userPhone=localStorage.getItem("userPhone")||"Unknown";
 
 if(amount<4000){toast("Minimum withdrawal is 4,000 coins");return;}
-if(amount>20000){toast("Maximum daily withdrawal is 20,000 coins");return;}
+if(amount>20000){toast("Maximum daily limit is 20,000");return;}
 if(amount>coins){toast("Insufficient coins");return;}
-if(!upi||!upi.includes("@")){toast("Enter a valid UPI ID");return;}
+if(!upi||!upi.includes("@")){toast("Enter valid UPI ID");return;}
 
 coins-=amount;
 save();
 
-let msg = `🚨 *New Withdrawal Request - CoinRush Pro* 🚨%0A📱 User: +91 ${userPhone}%0A💰 Amount: ${amount} Coins%0A💳 UPI ID: ${upi}%0A📅 Date: ${today()}`;
-let myWhatsAppNumber = "919339823790"; 
-
-window.open(`https://wa.me/${myWhatsAppNumber}?text=${msg}`, "_blank");
+let msg = `🚨 *New Withdrawal Request* 🚨%0A📱 User: +91 ${userPhone}%0A💰 Amount: ${amount} Coins%0A💳 UPI: ${upi}%0A📅 Date: ${today()}`;
+window.open(`https://wa.me/919339823790?text=${msg}`, "_blank");
 
 let arr=JSON.parse(localStorage.getItem("withdrawals")||"[]");
 arr.unshift({amount:amount, upi:upi, date:today(), status:"Pending ⏳"});
 localStorage.setItem("withdrawals",JSON.stringify(arr));
 
 closeModal("withdrawModal");
-toast("✅ Withdrawal request submitted & sent to WhatsApp!");
+toast("✅ Request submitted & WhatsApp opened!");
 }
 
 function openHistory(){
 openModal("historyModal");
 let arr=JSON.parse(localStorage.getItem("withdrawals")||"[]");
 let box=document.getElementById("historyList");
-if(!arr.length){box.innerHTML="<p style='text-align:center;color:#aaa'>No withdrawal history yet.</p>";return;}
+if(!arr.length){box.innerHTML="<p style='text-align:center;color:#aaa;font-size:12px'>No history yet.</p>";return;}
 box.innerHTML=arr.map(x=>"<div>💰 <b>"+x.amount+" Coins</b><br>UPI: "+x.upi+"<br>📅 "+x.date+"<br>Status: "+x.status+"</div>").join("");
 }
 
